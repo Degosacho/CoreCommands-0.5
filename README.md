@@ -28,3 +28,7 @@ Note: Compatibility is not guaranteed on different versions or non-Fabric enviro
 2. Place the `.jar` file into your server's `plugins` directory.
 3. Ensure your server is running **Cobbleverse** version `1.0.2-SNAPSHOT-0769551-fabric`.
 4. Start or restart your server.
+
+## 📄 License
+
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.
