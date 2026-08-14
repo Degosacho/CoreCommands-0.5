@@ -6,7 +6,7 @@ A lightweight Spigot plugin for homes
 > Important: This project has been specifically built and tested to run on the following environment:
 
 * **Modpack / Platform:** Cobbleverse
-* **Target Version:** `1.0.2-SNAPSHOT-0769551-fabric`
+* **Target Version:** `ArcLight-1.0.2-SNAPSHOT-0769551-fabric`
 * **Loader:** Fabric
 
 Note: Compatibility is not guaranteed on different versions or non-Fabric environments.
