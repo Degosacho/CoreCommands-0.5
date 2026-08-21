@@ -33,7 +33,7 @@ A lightweight and modular plugin designed to provide essential utility commands 
 ## 🛠️ Installation
 
 1. Download the latest build from the **Releases** tab.
-2. Place the `.jar` file into your server's `mods` directory.
+2. Place the `.jar` file into your server's `plugins` directory.
 3. Ensure your server is running **Cobbleverse** version `1.0.2-SNAPSHOT-0769551-fabric`.
 4. Start or restart your server.
 
