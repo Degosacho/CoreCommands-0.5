@@ -1,0 +1,51 @@
+name: Estudio
+version: '${version}'
+
+main: me.dego.estudio.Estudio
+depend: [Vault]
+api-version: '1.21.1'
+load: POSTWORLD
+author: degosacho
+
+commands:
+
+  sethome:
+    description: Comando para crear un home donde teletransportarte.
+    usage: "Usage: /sethome <home>"
+
+  home:
+    description: Comando para ir a uno de tus hogares.
+    usage: "Usage: /home [home]"
+
+  homes:
+    description: Accede a la lista de homes de tu usuario.
+    usage: "Usage: /homes"
+
+  delhome:
+    description: Comando para eliminar un home.
+    usage: "Usage: /sethome <home>"
+
+  pico3x3:
+    description: Te da un pico 3x3
+    usage: "Usage: /pico3x3"
+
+  pala3x3:
+    description: Te da una pala 3x3
+    usage: "Usage: /pala3x3"
+
+permissions:
+  homes.limit.2:
+    description: Permite tener hasta 2 homes
+    default: true
+  homes.limit.4:
+    description: Permite tener hasta 4 homes
+    default: false
+  homes.limit.6:
+    description: Permite tener hasta 6 homes
+    default: false
+  homes.limit.9:
+    description: Permite tener hasta 9 homes
+    default: false
+  homes.limit.13:
+    description: Permite tener hasta 13 homes
+    default: false
