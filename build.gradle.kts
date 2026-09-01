@@ -2,6 +2,7 @@ plugins {
     id("java-library")
     id("xyz.jpenilla.run-paper") version "3.0.2"
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.21"
+    id("io.github.goooler.shadow") version "8.1.8"
 }
 
 repositories {
@@ -14,6 +15,13 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     paperweight.paperDevBundle("1.21.1-R0.1-SNAPSHOT")
+    implementation("net.kyori:adventure-platform-bukkit:4.3.4")
+    implementation("net.kyori:adventure-text-serializer-legacy:4.17.0")
+    implementation("net.kyori:adventure-text-minimessage:4.17.0")
+}
+
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    archiveClassifier.set("")
 }
 
 java {

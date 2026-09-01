@@ -8,6 +8,16 @@ load: POSTWORLD
 author: degosacho
 
 commands:
+  shopcapture:
+    description: Captura el ítem en mano para usarlo en una tienda.
+    usage: "Usage: /shopcapture"
+
+  estudioreload:
+    description: Recarga los yaml
+
+  jobs:
+    description: Abre el menú de selección de trabajo.
+    usage: "Usage: /jobs"
 
   sethome:
     description: Comando para crear un home donde teletransportarte.

@@ -1,6 +1,6 @@
 package me.dego.estudio.commands;
 
-import me.dego.estudio.Pala3x3Listener;
+import me.dego.estudio.listeners.Pala3x3Listener;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

@@ -1,0 +1,68 @@
+jobs:
+
+  minero:
+    display-name: "§6Minero"
+    blocks:
+      STONE:
+        xp: 1
+        money: 2
+      COAL_ORE:
+        xp: 5
+        money: 10
+      IRON_ORE:
+        xp: 8
+        money: 15
+      DIAMOND_ORE:
+        xp: 25
+        money: 50
+      DEEPSLATE_DIAMOND_ORE:
+        xp: 25
+        money: 50
+
+  lenador:
+    display-name: "§2Leñador"
+    blocks:
+      OAK_LOG:
+        xp: 2
+        money: 3
+      BIRCH_LOG:
+        xp: 2
+        money: 3
+      SPRUCE_LOG:
+        xp: 2
+        money: 3
+      DARK_OAK_LOG:
+        xp: 3
+        money: 4
+
+  cazador:
+    display-name: "§cCazador"
+    mobs:
+      ZOMBIE:
+        xp: 5
+        money: 8
+      SKELETON:
+        xp: 5
+        money: 8
+      CREEPER:
+        xp: 10
+        money: 15
+      ENDERMAN:
+        xp: 20
+        money: 30
+
+  pescador:
+    display-name: "§bPescador"
+    fishing:
+      COD:
+        xp: 4
+        money: 6
+      SALMON:
+        xp: 4
+        money: 6
+      TROPICAL_FISH:
+        xp: 10
+        money: 20
+      PUFFERFISH:
+        xp: 8
+        money: 15
