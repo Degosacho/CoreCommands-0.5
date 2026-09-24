@@ -41,7 +41,14 @@ public class PlaceholderResolver {
     private int countCustomItem(Player player, java.util.Map<String, ShopItem> menuItems, String itemKey) {
         if (menuItems == null) return 0;
         ShopItem referenced = menuItems.get(itemKey);
-        if (referenced == null || referenced.getCustomItemBase64() == null) return 0;
+        if (referenced == null) return 0;
+        if (referenced.getCustomItemBase64() == null) {
+            // Sin base64 es un item vanilla declarado con 'material:'. Se cuenta por tipo
+            // en vez de devolver 0, que es lo que rompia todos los menus de venta vanilla.
+            return referenced.getMaterial() == null
+                    ? 0
+                    : countMaterial(player, referenced.getMaterial().name());
+        }
 
         ItemStack template = ItemSerializer.deserialize(referenced.getCustomItemBase64());
         if (template == null) return 0;

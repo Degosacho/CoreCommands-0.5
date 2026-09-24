@@ -9,22 +9,25 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
+import org.bukkit.inventory.ItemStack;
+
 import java.io.File;
+import java.util.List;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 
- /**
-  * Núcleo del sistema de tiendas.
-  *
-  * - Carga todos los .yml de la carpeta shops/ al arrancar.
-  * - Registra dinámicamente un comando de Bukkit por cada 'open_command'
-  *   (así no hay que declarar cada tienda a mano en plugin.yml).
-  * - Recuerda qué menú tiene abierto cada jugador (para /shop y para refresh).
-  * - Gestiona las tareas de auto-refresco (update_interval).
-  */
+/**
+ * Núcleo del sistema de tiendas.
+ *
+ * - Carga todos los .yml de la carpeta shops/ al arrancar.
+ * - Registra dinámicamente un comando de Bukkit por cada 'open_command'
+ *   (así no hay que declarar cada tienda a mano en plugin.yml).
+ * - Recuerda qué menú tiene abierto cada jugador (para /shop y para refresh).
+ * - Gestiona las tareas de auto-refresco (update_interval).
+ */
 
 public class ShopManager {
 
@@ -40,10 +43,19 @@ public class ShopManager {
     // Tareas de auto-refresco activas por jugador (para cancelarlas al cerrar el inventario)
     private final Map<UUID, BukkitTask> refreshTasks = new HashMap<>();
 
+    // Buscador: el indice se reconstruye cada vez que se recargan los menus.
+    private final SearchIndex indice = new SearchIndex();
+    private final SearchInput entradaBusqueda;
+
     public ShopManager(Plugin plugin) {
         this.plugin = plugin;
         this.actionExecutor = new ActionExecutor(this, resolver);
+        this.entradaBusqueda = new SearchInput(plugin, this);
     }
+
+    /** El listener de la entrada de busqueda; hay que registrarlo en onEnable(). */
+    public SearchInput getEntradaBusqueda() { return entradaBusqueda; }
+    public SearchIndex getIndice() { return indice; }
 
     public PlaceholderResolver getResolver() { return resolver; }
     public ActionExecutor getActionExecutor() { return actionExecutor; }
@@ -84,7 +96,9 @@ public class ShopManager {
             }
         }
 
-        plugin.getLogger().info("Cargados " + menusByCommand.size() + " menús de tienda desde shops/");
+        indice.reconstruir(menusByCommand);
+        plugin.getLogger().info("Cargados " + menusByCommand.size() + " menús de tienda desde shops/"
+                + " (" + indice.tamano() + " entradas buscables)");
     }
 
     public ShopMenu getMenu(String openCommand) {
@@ -186,5 +200,52 @@ public class ShopManager {
         lastOpenedMenu.remove(uuid);
     }
 
-     public Plugin getPlugin() { return plugin; }
+    // ============================================================
+    //  Buscador
+    // ============================================================
+
+    /** Le pide al jugador que escriba lo que busca (cartel o yunque). */
+    public void pedirBusqueda(Player player) {
+        entradaBusqueda.pedir(player);
+    }
+
+    /**
+     * Busca y actua: si solo hay un resultado se abre directamente, si hay
+     * varios se enseña la lista, y si no hay ninguno se avisa.
+     */
+    public void buscar(Player player, String texto) {
+        if (texto == null || texto.isBlank()) {
+            player.sendMessage("§cNo has escrito nada.");
+            return;
+        }
+        List<SearchIndex.Entrada> resultados = indice.buscar(texto);
+        if (resultados.isEmpty()) {
+            player.sendMessage("§cNo hay nada que se llame §6" + texto + "§c en la tienda.");
+            return;
+        }
+        if (resultados.size() == 1) {
+            open(player, resultados.get(0).menu());
+            return;
+        }
+        abrirResultados(player, texto, resultados, 0);
+    }
+
+    public void abrirResultados(Player player, String consulta,
+                                List<SearchIndex.Entrada> resultados, int pagina) {
+        player.openInventory(SearchMenu.construir(player, this, consulta, resultados, pagina));
+        actionExecutor.execute("[sound] ui.button.click", player);
+    }
+
+    /** Dibuja el icono de un item de la tienda tal y como se veria en su menu. */
+    public ItemStack construirIcono(SearchIndex.Entrada entrada, Player player) {
+        return construirIcono(entrada.icono(), player);
+    }
+
+    public ItemStack construirIcono(ShopItem item, Player player) {
+        if (item == null) return new ItemStack(org.bukkit.Material.PAPER);
+        ShopMenu cualquiera = menusByCommand.values().iterator().next();
+        return cualquiera.buildItemStack(item, player, resolver);
+    }
+
+    public Plugin getPlugin() { return plugin; }
 }

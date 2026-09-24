@@ -72,6 +72,7 @@ public class ShopMenu {
     }
 
     public String getOpenCommand() { return openCommand; }
+    public String getTitle() { return title; }
     public String getOpenPermission() { return openPermission; }
     public List<String> getOpenDenyCommands() { return openDenyCommands; }
     public int getUpdateIntervalTicks() { return updateIntervalTicks; }
@@ -99,7 +100,7 @@ public class ShopMenu {
         return instance;
     }
 
-    private ItemStack buildItemStack(ShopItem shopItem, Player player, PlaceholderResolver resolver) {
+    public ItemStack buildItemStack(ShopItem shopItem, Player player, PlaceholderResolver resolver) {
         ItemStack stack;
 
         if (shopItem.getCustomItemBase64() != null) {

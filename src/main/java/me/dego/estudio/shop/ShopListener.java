@@ -20,11 +20,31 @@ public class ShopListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
+        if (event.getInventory().getHolder() instanceof SearchMenu.Holder holder) {
+            event.setCancelled(true);
+            if (!(event.getWhoClicked() instanceof Player p)) return;
+            if (event.getClickedInventory() != event.getView().getTopInventory()) return;
+            String destino = holder.destinoDe(event.getSlot());
+            if (destino == null) return;
+            switch (destino) {
+                case "\0cerrar" -> p.closeInventory();
+                case "\0otra" -> shopManager.pedirBusqueda(p);
+                case "\0anterior" -> shopManager.abrirResultados(p, holder.getConsulta(),
+                        holder.getResultados(), holder.getPagina() - 1);
+                case "\0siguiente" -> shopManager.abrirResultados(p, holder.getConsulta(),
+                        holder.getResultados(), holder.getPagina() + 1);
+                default -> shopManager.open(p, destino);
+            }
+            return;
+        }
         if (!(event.getInventory().getHolder() instanceof ShopMenu.ShopMenuInstance instance)) return;
 
         event.setCancelled(true); // nunca se pueden sacar ítems de la tienda
 
         if (!(event.getWhoClicked() instanceof Player player)) return;
+        // Sin esto, clicar el slot N de tu propio inventario disparaba la accion
+        // del slot N del menu de la tienda.
+        if (event.getClickedInventory() != event.getView().getTopInventory()) return;
         ItemStack clicked = event.getCurrentItem();
         if (clicked == null) return;
 

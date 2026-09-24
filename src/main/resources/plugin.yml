@@ -8,6 +8,30 @@ load: POSTWORLD
 author: degosacho
 
 commands:
+  itemname:
+    description: Le pones el nombre con colores y gradientes al item que tengas en la mano
+    usage: "Usage: /itemname <texto>"
+  buscar:
+    description: Busca un item en la tienda y abre su menu.
+    usage: "Usage: /buscar [texto]"
+    aliases: [buscartienda]
+
+  llaves:
+    description: Enseña tus llaves de las cajas y te deja comprarlas.
+    usage: "Usage: /llaves [caja]"
+    aliases: [llave, miscajas]
+
+  cajas:
+    description: Administración de las cajas del spawn.
+    usage: "Usage: /cajas <lista|colocar|quitar|dar|poner|ver|recargar>"
+    permission: estudio.cajas.admin
+
+  holo:
+    description: Crea y edita hologramas.
+    usage: "Usage: /holo <crear|editar|texto|lista|borrar|...>"
+    permission: estudio.holo.admin
+    aliases: [holograma, hologramas]
+
   shopcapture:
     description: Captura el ítem en mano para usarlo en una tienda.
     usage: "Usage: /shopcapture"
@@ -44,6 +68,15 @@ commands:
     usage: "Usage: /pala3x3"
 
 permissions:
+  estudio.holo.admin:
+    description: Permite crear y editar hologramas
+    default: op
+  estudio.cajas.admin:
+    description: Permite colocar y administrar las cajas y sus llaves
+    default: op
+  shop:
+    description: Permite abrir los menus de la tienda
+    default: true
   homes.limit.2:
     description: Permite tener hasta 2 homes
     default: true

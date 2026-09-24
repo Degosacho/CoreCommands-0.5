@@ -25,6 +25,9 @@ public class ReloadCommand implements CommandExecutor {
         try {
             jobManager.loadJobsFromConfig();
             shopManager.loadAllMenus();
+            // Las cajas tambien salen de un .yml, asi que se recargan aqui mismo.
+            me.dego.estudio.crates.CrateManager cajas = me.dego.estudio.Estudio.getInstance().getCrateManager();
+            if (cajas != null) cajas.cargarCajas();
         } catch (Exception e) {
             sender.sendMessage(ChatColor.RED + "Error al recargar: " + e.getMessage());
             e.printStackTrace();

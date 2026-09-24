@@ -65,8 +65,34 @@ public class ActionExecutor {
             case "openguimenu" -> shopManager.open(player, args.trim());
             case "sound" -> playSound(player, args.trim());
             case "refresh" -> shopManager.refresh(player);
+            case "search" -> shopManager.pedirBusqueda(player);
+            case "givekey" -> darLlave(player, args.trim());
             default -> { /* tag desconocido, se ignora silenciosamente */ }
         }
+    }
+
+    /**
+     * '[givekey] <caja> [cantidad]' — le da llaves virtuales de una caja.
+     * Se usa desde los menus que venden llaves, igual que se usa [console] eco take
+     * para cobrarlas.
+     */
+    private void darLlave(Player player, String args) {
+        me.dego.estudio.crates.CrateManager cajas = me.dego.estudio.Estudio.getInstance().getCrateManager();
+        if (cajas == null) {
+            shopManager.getPlugin().getLogger().warning("[Shop] [givekey] pero el sistema de cajas no esta activo.");
+            return;
+        }
+        String[] partes = args.split("\\s+");
+        if (partes.length == 0 || partes[0].isBlank()) return;
+        int cantidad = 1;
+        if (partes.length > 1) {
+            try { cantidad = Integer.parseInt(partes[1]); } catch (NumberFormatException ignored) { }
+        }
+        if (cajas.getCaja(partes[0]) == null) {
+            shopManager.getPlugin().getLogger().warning("[Shop] [givekey] apunta a una caja que no existe: " + partes[0]);
+            return;
+        }
+        cajas.darLlaves(player.getUniqueId(), partes[0], cantidad);
     }
 
     private void playSound(Player player, String soundKey) {

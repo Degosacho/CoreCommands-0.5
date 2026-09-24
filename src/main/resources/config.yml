@@ -1,0 +1,22 @@
+# Configuracion del plugin Estudio
+
+busqueda:
+  # Como se le pide al jugador el texto que busca:
+  #   cartel  -> abre el editor de carteles (coloca uno temporal muy por
+  #              encima del jugador, en aire, y lo quita al terminar)
+  #   yunque  -> abre un yunque y lee el nombre que teclea; no toca el mundo
+  entrada: cartel
+
+cajas:
+  # Como se le entrega un Pokemon al jugador cuando le toca en una caja.
+  # Se ejecuta TAL CUAL en la consola del servidor. Cambialo aqui si tu
+  # servidor hibrido registra el comando de Cobblemon con otro nombre
+  # (por ejemplo 'givepokemon' en vez de 'pokegive').
+  #
+  #   %jugador%   el nombre del jugador
+  #   %pokemon%   el identificador de la especie (pikachu, hooh, mrmime...)
+  #   %nivel%     el nivel que ponga el premio en su .yml
+  #   %shiny%     se sustituye por 'sufijo_shiny' si ha tocado shiny, y por
+  #               nada si no
+  comando_pokemon: 'pokegiveother %jugador% %pokemon% level=%nivel%%shiny%'
+  sufijo_shiny: ' shiny=yes'
