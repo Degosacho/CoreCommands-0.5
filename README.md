@@ -9,7 +9,7 @@ A lightweight, modular, and high-performance Fabric mod designed to provide esse
 > **Important:** This project has been specifically built and tested to run on the following environment:
 
 * **Modpack / Platform:** Cobbleverse
-* **Target Version:** `1.0.2-SNAPSHOT-0769551-fabric`
+* **Target Version:** `Arclight-1.0.2-SNAPSHOT-0769551-fabric`
 * **Loader:** Fabric
 * **Dependences:** VaultEconomy
 
@@ -20,6 +20,7 @@ A lightweight, modular, and high-performance Fabric mod designed to provide esse
 ## 🚀 Features & Changelog (v1.0)
 
 ### 🆕 New in Version 1.0
+* 💼 **Crates System:** Earn pokemons, money, or items by buying a digital key and using it on the respective crate.
 * 🛒 **Shop System (`/shop`):** Fully integrated in-game shop for buying and selling items smoothly.
 * 💾 **SQLite Database Migration:** Upgraded the Home System backend to use a local **SQLite** database, ensuring faster load times, reliable data persistence, and zero data loss on crashes.
 * ⚡ **Performance & Compatibility Fixes:** Refactored internal class methods to resolve compatibility issues with other Fabric mods and improve overall execution efficiency.
@@ -40,7 +41,7 @@ A lightweight, modular, and high-performance Fabric mod designed to provide esse
 
 1. Download the latest release (`v1.0`) from the **Releases** tab.
 2. Place the `.jar` file into your server's `plugins` directory.
-3. Ensure your server is running **Cobbleverse** version `1.0.2-SNAPSHOT-0769551-fabric`.
+3. Ensure your server is running **Cobbleverse** version `Arclight-1.0.2-SNAPSHOT-0769551-fabric`.
 4. Start or restart your server.
 
 ---
